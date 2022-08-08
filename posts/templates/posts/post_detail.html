@@ -1,0 +1,28 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block style %}
+  <link rel='stylesheet' href='{% static 'posts/style.css'%}' />
+{% endblock style %}
+
+{% block content %}
+  <article>
+    <h1>
+      {{post.title}}
+    </h1>
+    <p>
+      {{post.content}}
+    </p>
+    <p>
+      {{post.dt_modified}}
+    </p>
+  </article>
+  
+  <div>
+    <a href="{% url 'post-list' %}">목록으로</a>
+    <a href="{% url 'post-update' post.id %}">
+      수정하기
+    </a>
+    <a href="{% url 'post-delete' post.id %}">삭제하기</a>
+  </div>
+{% endblock content %}

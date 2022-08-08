@@ -1,0 +1,13 @@
+<form method="post">{% csrf_token %}
+  <h1>제목</h1>
+  <p>{{form.title}}</p>
+  {% for error in form.title.errors %}
+    <p>{{error}}</p>
+  {% endfor %}
+  <h1>내용</h1>
+  <p>{{form.content}}</p>
+  {% for error in form.content.errors %}
+    <p>{{error}}</p>
+  {% endfor %}
+  <input type="submit" value="작성">
+</form>

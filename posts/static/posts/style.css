@@ -1,0 +1,77 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+/* reset css */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+a {
+  text-decoration: none; 
+  outline: none
+}
+a:hover, a:active,a:visited, a:link{
+  text-decoration: none; 
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  color: #252B42;
+}
+
+/* nav bar */
+.navigator {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.title {
+  margin-left: 150px;
+}
+
+.menu{
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu-item{
+  margin-right: 18px;
+  padding: 10px;
+}
+
+.menu-item:last-child{
+  margin-right: 150px;
+}
+
+/* header */
+.desc {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 509px;
+  margin-right: 10px;
+}

@@ -1,0 +1,28 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'posts/style.css' %}" />
+{% endblock style %}
+
+{% block content %}
+  {% if post %}
+    <div>
+      {% for post in post %}
+        <h1>
+          <a href="{% url 'post-detail' post.id %}">
+            {{post.title}}
+          </a>
+        </h1>
+        <p>
+          {{post.dt_created}}
+          {{post.content}}
+        </p>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <button type='button'>
+    <a href="{% url 'post-create' %}">글쓰기</a>
+  </button>
+{% endblock content %}
