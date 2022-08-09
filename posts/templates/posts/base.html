@@ -24,14 +24,26 @@
       <li class="menu-item">
         <a href="{% url 'post-list' %}">POST</a>
       </li>
-      <li class="menu-item">
-        <a href="#">LOGIN</a>
-      </li>
-      <li class="menu-item">
-        <a href="#">LOGOUT</a>
-      </li>
+      {% if user.is_authenticated %}
+        <li class="menu-item">
+          <a href="{% url 'account_logout'%}">LOGOUT</a>
+        </li>
+      {% else %}
+        <li class="menu-item">
+          <a href="{% url 'account_login' %}">LOGIN</a>
+        </li>
+        <li class="menu-item"">
+          <a href="{% url 'account_signup' %}">SIGN UP</a>
+        </li>
+      {% endif %}
     </ul>
+    
   </nav>
+  {% if user.is_authenticated %}
+    <p>안녕하세요 {{user}}님!!</p>
+  {% else %}
+    <p>로그아웃된 상태입니다.</p>
+  {% endif %}
 
   {% block content %}
   {% endblock content %}
