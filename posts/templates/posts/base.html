@@ -28,6 +28,9 @@
         <li class="menu-item">
           <a href="{% url 'account_logout'%}">LOGOUT</a>
         </li>
+        <li class="menu-item">
+          <a href="{% url 'account_change_password' %}">비밀번호 변경</a>
+        </li>
       {% else %}
         <li class="menu-item">
           <a href="{% url 'account_login' %}">LOGIN</a>
@@ -40,7 +43,7 @@
     
   </nav>
   {% if user.is_authenticated %}
-    <p>안녕하세요 {{user}}님!!</p>
+    <p>안녕하세요 {{user}}님의 닉네임음{{user.nickname}}입니다.!!</p>
   {% else %}
     <p>로그아웃된 상태입니다.</p>
   {% endif %}

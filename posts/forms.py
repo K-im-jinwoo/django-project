@@ -1,5 +1,4 @@
 from django import forms
-
 from .validators import validate_symbols
 from .models import Post
 from django.core.exceptions import ValidationError
