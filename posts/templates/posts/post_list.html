@@ -2,27 +2,37 @@
 {% load static %}
 
 {% block style %}
+  <link rel="stylesheet" href="{% static 'posts/list_style.css' %}" />
   <link rel="stylesheet" href="{% static 'posts/style.css' %}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;700&display=swap" rel="stylesheet">
 {% endblock style %}
 
 {% block content %}
-  {% if post %}
-    <div>
-      {% for post in post %}
-        <h1>
-          <a href="{% url 'post-detail' post.id %}">
-            {{post.title}}
-          </a>
-        </h1>
-        <p>
-          {{post.dt_created}}
-          {{post.content}}
-        </p>
-      {% endfor %}
-    </div>
-  {% endif %}
+  <div class="post-box">
+    {% if post %}
+      <div class="post">
+        {% for post in post %}
+          <h1 class="post-title">
+            <a href="{% url 'post-detail' post.id %}">
+              {{post.title}}
+            </a>
+          </h1>
+          <span class="post-dt-created">
+            {{post.dt_created}}
+          </span>
+          <p class="post-content">
+            {{post.content}}
+          </p>
+        {% endfor %}
+      </div>
+    {% endif %}
 
-  <button type='button'>
+    
+  <button type='button' class="post-create-btn">
     <a href="{% url 'post-create' %}">글쓰기</a>
   </button>
+  </div>
+
 {% endblock content %}

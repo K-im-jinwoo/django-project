@@ -41,37 +41,85 @@ h1,h2,h3,h4,h5,h6 {
 
 /* nav bar */
 .navigator {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 30px;
+	display: flex;
+	justify-content: space-between;
+	padding: 0 20px;
+	margin-top: 32px;
+	margin-bottom: 60px;
+}
+.title-logo {
+	width: 50px;
+	height: 50px;
 }
 
-.title {
-  margin-left: 150px;
+/* dropdown */
+.dropdown-button {
+	width: 48px;
+	height: 48px;
 }
 
-.menu{
-  display: flex;
-  justify-content: space-between;
+/* index */
+.desc-title {
+	width: 200px;
+	font-size: 40px;
+	margin-bottom: 26px;
+}
+.desc-jw p strong{
+	font-size: 20px;
+}
+.desc-jw {
+	margin-bottom: 18px;
+	font-size: 30px;
+	line-height: 40px;
+}
+.my-desc {
+	height: 100vh;
+	padding: 0 20px;
 }
 
-.menu-item{
-  margin-right: 18px;
-  padding: 10px;
+.btn a {
+	display: block;
+	border: solid 2px #fff;
+	border-radius: 8px;
+	color: #fff;
+	background-color: #191919;
+	width: 180px;
+	height: 56px;
 }
 
-.menu-item:last-child{
-  margin-right: 150px;
-}
 
-/* header */
-.desc {
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  width: 509px;
-  margin-right: 10px;
+/* 1280px */
+@media screen and (min-width:1280px) {
+	.navigator {
+		padding: 0 60px;
+	}
+	.title-logo {
+		width: 80px;
+		height: 80px;
+	}
+	.dropdown-button {
+		position: absolute;
+		top: 9999px;
+	}
+	.menu {
+		display: flex;
+	}
+	.menu-item {
+		margin-right: 16px;
+	}
+	.menu-item a {
+		display: block;
+		padding: 20px;
+	}
+
+	.desc-title {
+		width: 100%;
+		font-size: 50px;
+	}
+
+	.my-desc {
+		display: flex;
+		justify-content: space-around;
+		padding: 0 100px;
+	}
 }

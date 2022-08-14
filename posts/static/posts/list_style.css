@@ -1,0 +1,23 @@
+.post-box {
+  position: relative;
+  width: 100%;
+  padding: 0 20px ;
+}
+.post {
+  display: flex; 
+  flex-wrap: wrap;
+  width: 30%;
+  padding: 17px 12px;
+  background-color: bisque;
+}
+.post-dt-created,
+.post-content,
+.post-title{
+  width: 100%;
+  margin-bottom: 30px;
+}
+.post-create-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

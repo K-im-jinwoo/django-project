@@ -9,44 +9,56 @@
   <title>practice</title>
   {% block style %}
   {% endblock style %}
+  <link rel="stylesheet" href="{% static 'posts/style.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <nav class="navigator">
     <h1 class="title">
-      <a href="{% url 'index' %}">
-        Jinwoo project
+      <a href="{% url 'index' %}" class="title-link">
+        <!-- Jinwoo project -->
+        <img src="{% static 'posts/logo.png' %}" alt="로고" class="title-logo">
       </a>
     </h1>
-    <ul class="menu">
-      <li class="menu-item">
-        <a href="{% url 'index' %}">HOME</a>
-      </li>
-      <li class="menu-item">
-        <a href="{% url 'post-list' %}">POST</a>
-      </li>
-      {% if user.is_authenticated %}
-        <li class="menu-item">
-          <a href="{% url 'account_logout'%}">LOGOUT</a>
-        </li>
-        <li class="menu-item">
-          <a href="{% url 'account_change_password' %}">비밀번호 변경</a>
-        </li>
-      {% else %}
-        <li class="menu-item">
-          <a href="{% url 'account_login' %}">LOGIN</a>
-        </li>
-        <li class="menu-item"">
-          <a href="{% url 'account_signup' %}">SIGN UP</a>
-        </li>
-      {% endif %}
-    </ul>
+    <div class="dropdown">
+      <button type="button" class="dropdown-button">
+        <img src="{% static 'posts/logo.png '%}" alt="드랍다운">
+      </button>
+      <div class="dropdown-menu">
+        <ul class="menu">
+          <li class="menu-item">
+            <a href="{% url 'index' %}">HOME</a>
+          </li>
+          <li class="menu-item">
+            <a href="{% url 'post-list' %}">POST</a>
+          </li>
+          {% if user.is_authenticated %}
+            <li class="menu-item">
+              <a href="{% url 'account_logout'%}">LOGOUT</a>
+            </li>
+            <li class="menu-item">
+              <a href="{% url 'account_change_password' %}">비밀번호 변경</a>
+            </li>
+          {% else %}
+            <li class="menu-item">
+              <a href="{% url 'account_login' %}">LOGIN</a>
+            </li>
+            <li class="menu-item"">
+              <a href="{% url 'account_signup' %}">SIGN UP</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
     
   </nav>
-  {% if user.is_authenticated %}
+  <!-- {% if user.is_authenticated %}
     <p>안녕하세요 {{user}}님의 닉네임음{{user.nickname}}입니다.!!</p>
   {% else %}
     <p>로그아웃된 상태입니다.</p>
-  {% endif %}
+  {% endif %} -->
 
   {% block content %}
   {% endblock content %}

@@ -11,13 +11,18 @@
 {% block content %}
   <header class="my-desc">
     <div class="desc">
-      <h1>Jinwoo Project</h1>
-      <p>
-        DEU 20182382 KIM JIN WOO
+      <h1 class="desc-title">Jinwoo Project</h1>
+      <p class="desc-jw">
+        <Strong>DEU 20182382 <br/> KIM JIN WOO</Strong><br/>
+        Welcome<br/>
+        MY Portfolio<br/>
+        kkkkkk<br/>
+        kkkkkk
       </p>
-      <div>
-        <button type="button">MORE</button>
-        <button type="button">PORTFOLIO</button>
+      <div class="btn">
+        <a href="{% url 'post-list' %}">
+          PORTFOLIO
+        </a>
       </div>
     </div>
     <img src="#" alt="JW FACE">
