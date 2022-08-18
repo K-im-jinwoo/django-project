@@ -1,0 +1,89 @@
+{% extends "posts_base/base.html" %}
+{% load static %}
+{% load widget_tweaks%}
+
+{% block style %}
+  <link rel='stylesheet' href='{% static 'posts/css/style.css' %}' />
+{% endblock style %}
+
+{% block content %}
+<main class="site-body">
+  <form method="post" autocomplete="off" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+      {{ form.title|add_class:"cp-input"|attr:"placeholder:제목"}}
+      {% for error in title.errors %}
+        <div> {{error}} </div>
+      {% endfor %}
+    </div>
+    <div>
+      {{ form.post_link|add_class:"cp-input"|attr:"placeholder:네이버 또는 카카오 플레이스 주소"}}
+      {% for error in post_link.errors %}
+        {{error}}
+      {% endfor %}
+    </div>
+    <div class="rating">
+      <div class="cp-stars">
+        {% for radio in form.rating %}
+          {{radio}}
+        {% endfor %}
+      </div>
+    </div>
+    <div class="content">
+      {{ form.content|add_class:"cp-input"|attr:"리뷰를 작성해 주세요"}}
+      {% for error in content.errors %}
+        {{error}}
+      {% endfor %}
+    </div>
+    <div class="file">
+      <div class="file-content">
+        <div>
+          {% if review.image1 %}
+            <img src="{{ review.image1.url}}" />
+          {% endif %}
+          {{ form.image1 }}
+          {% for error in image1.errors %}
+            {{error}}
+          {% endfor %}
+        </div
+      </div>
+    </div>
+    <div class="file">
+      <div class="file-content">
+        <div>
+          {% if review.image2 %}
+            <img src="{{ review.image2.url}}" />
+          {% endif %}
+          {{ form.image2 }}
+          {% for error in image2.errors %}
+            {{error}}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="file">
+      <div class="file-content">
+        <div>
+          {% if review.image3 %}
+            <img src="{{ review.image3.url}}" />
+          {% endif %}
+          {{ form.image3 }}
+          {% for error in image3.errors %}
+            {{error}}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <a 
+        class="cp-button secondary cancel" 
+        href="{% if review %}{% url 'review-detail' review.id%}{% else %}{% url 'index' %}{% endif %}"
+      >
+        취소
+      </a>
+      <button class="cp-button submit" type="submit">완료</button>
+    </div>
+  </form>
+</main>
+{% endblock content %}

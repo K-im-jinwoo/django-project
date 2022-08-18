@@ -1,6 +1,5 @@
 from django import forms
-from .validators import validate_symbols
-from .models import Post
+from .models import Post, Review
 from django.core.exceptions import ValidationError
 
 
@@ -16,3 +15,11 @@ class PostForm(forms.ModelForm):
       raise ValidationError('*는 포함될 수 없습니다.')
 
     return title
+
+class ReviewForm(forms.ModelForm):
+  class Meta:
+    model = Review
+    fields = ['title', 'content', 'post_link', 'rating', 'image1', 'image2', 'image3']
+    widgets = {
+      "rating": forms.RadioSelect,
+    }

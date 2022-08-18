@@ -1,0 +1,28 @@
+{% extends 'posts_base/base.html' %}
+{% load static %}
+
+{% block style %}
+  <link rel='stylesheet' href='{% static 'posts/css/style.css' %}' />
+{% endblock style %}
+
+{% block content %}
+  {% for review in reviews %}
+    <a href="{% url 'review-detail' review.id %}">
+      {{review.title}}
+      {{review.dt_created|date:"Y년 n월 j일"}}
+      {{review.content}}
+      <img src='{{review.image1.url}}' alt="대표 리뷰 사진">
+      <span>
+        {% for i in ""|ljust:review.rating %}*{% endfor %}
+      </span>
+      {{review.author.nickname}}
+    </a>
+    {% empty %}
+    <p>리뷰가 아직 없어요 :( </p>
+  {% endfor %}
+  
+  <button type='button' class="post-create-btn">
+    <a href="{% url 'review-create' %}">글쓰기</a>
+  </button>
+  
+{% endblock content %}

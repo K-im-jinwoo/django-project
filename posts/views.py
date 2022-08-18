@@ -1,7 +1,10 @@
 from django.shortcuts import redirect, render, get_object_or_404
-from django.urls import is_valid_path
-from .models import Post
-from .forms import PostForm
+from django.views.generic import (
+  ListView, DetailView, CreateView, UpdateView, DeleteView
+)
+from django.urls import reverse
+from .models import Post, Review
+from .forms import PostForm, ReviewForm
 
 # Create your views here.
 
@@ -48,3 +51,45 @@ def post_delete(request, post_id):
     return redirect('post-list')
   else:
     return render(request, 'posts/post_confirm_delete.html', {'post': post})
+
+# 리뷰
+class ReviewListView(ListView):
+  model = Review
+  template_name = "posts_review/review_list.html"
+  context_object_name = "reviews"
+  paginate_by = 4
+  ordering = ["-dt_created"]
+
+class ReviewDetailView(DetailView):
+  model = Review
+  template_name = "posts_review/review_detail.html"
+  pk_url_kwarg = "review_id"
+
+class ReviewCreateView(CreateView):
+  model = Review
+  form_class = ReviewForm
+  template_name = "posts_review/review_form.html"
+
+  def form_valid(self, form):
+    form.instance.author = self.request.user
+    return super().form_valid(form)
+
+  def get_success_url(self):
+    return reverse("review-detail", kwargs={"review_id": self.object.id})
+
+class ReviewUpdateView(UpdateView):
+  model = Review
+  form_class = ReviewForm
+  template_name = "posts_review/review_form.html"
+  pk_url_kwarg = "review_id"
+
+  def get_success_url(self):
+    return reverse("review-detail", kwargs={"review_id": self.object.id})
+
+class ReviewDeleteView(DeleteView):
+  model = Review
+  template_name = "posts/post_confirm_delete.html"
+  pk_url_kwarg = "review_id"
+
+  def get_success_url(self):
+    return reverse("review-list")

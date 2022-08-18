@@ -1,5 +1,16 @@
-<h1>{{post.title}}</h1>
+<h1>
+  {% if review %}
+    {{review.title}}
+  {% else %}
+    {{post.title}}
+  {% endif %}
+</h1>
 <p>삭제하시겠습니까?</p>
 <form action="" method="post">{% csrf_token %}
   <button type="sumbit">삭제하기</button>
+  {% if review %}
+    <a href="{% url 'review-detail' review.id %}">취소</a>
+  {% else %}
+    <a href="{% url 'post-detail' post.id %}">취소</a>
+  {% endif %}
 </form>
