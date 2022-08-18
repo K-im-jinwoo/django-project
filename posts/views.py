@@ -2,9 +2,13 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import (
   ListView, DetailView, CreateView, UpdateView, DeleteView
 )
+from django.contrib.auth.decorators import login_required
+from braces.views import LoginRequiredMixin, UserPassesTestMixin
+from allauth.account.models import EmailAddress
 from django.urls import reverse
 from .models import Post, Review
 from .forms import PostForm, ReviewForm
+from user.functions import confirmation_required_redirect
 
 # Create your views here.
 
@@ -21,6 +25,7 @@ def post_detail(request, post_id):
   context = {'post': post}
   return render(request, 'posts/post_detail.html', context)
 
+@login_required
 def post_create(request):
   if request.method == 'POST':
     post_form = PostForm(request.POST)
@@ -31,6 +36,7 @@ def post_create(request):
     post_form = PostForm()
   return render(request, 'posts/post_form.html', {'form': post_form})
 
+@login_required
 def post_update(request, post_id):
   post = Post.objects.get(id=post_id)
   if request.method == 'POST':
@@ -44,6 +50,7 @@ def post_update(request, post_id):
   return render(request, 'posts/post_form.html', {'form': post_form})
     
 
+@login_required
 def post_delete(request, post_id):
   post = Post.objects.get(id=post_id)
   if request.method == 'POST':
@@ -65,10 +72,13 @@ class ReviewDetailView(DetailView):
   template_name = "posts_review/review_detail.html"
   pk_url_kwarg = "review_id"
 
-class ReviewCreateView(CreateView):
+class ReviewCreateView(LoginRequiredMixin, UserPassesTestMixin , CreateView):
   model = Review
   form_class = ReviewForm
   template_name = "posts_review/review_form.html"
+
+  redirect_unauthenticated_users = True
+  raise_exception = confirmation_required_redirect
 
   def form_valid(self, form):
     form.instance.author = self.request.user
@@ -77,19 +87,38 @@ class ReviewCreateView(CreateView):
   def get_success_url(self):
     return reverse("review-detail", kwargs={"review_id": self.object.id})
 
-class ReviewUpdateView(UpdateView):
+  def test_func(self, user):
+    return EmailAddress.objects.filter(user=user, verified=True).exists()
+
+
+class ReviewUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
   model = Review
   form_class = ReviewForm
   template_name = "posts_review/review_form.html"
   pk_url_kwarg = "review_id"
 
+  raise_exception = True
+  redirect_unauthenticated_users = False
+
   def get_success_url(self):
     return reverse("review-detail", kwargs={"review_id": self.object.id})
 
-class ReviewDeleteView(DeleteView):
+  def test_func(self, user):
+    review = self.get_object()
+    return review.author == user
+
+  
+
+class ReviewDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
   model = Review
   template_name = "posts/post_confirm_delete.html"
   pk_url_kwarg = "review_id"
 
+  raise_exception = True
+
   def get_success_url(self):
     return reverse("review-list")
+
+  def test_func(self, user):
+    review = self.get_object()
+    return review.author == user
